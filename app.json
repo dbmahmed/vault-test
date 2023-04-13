@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Vault",
+    "slug": "vault",
+    "scheme": "untitled-app",
+    "description": "The sports bet tracking app that helps you follow your money",
+    "privacy": "unlisted",
+    "platforms": [
+      "ios"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/app/icon.png",
+    "splash": {
+      "image": "./assets/app/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#242323"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.draftbit.untitledapp",
+      "supportsTablet": null,
+      "buildNumber": "1.0.0",
+      "infoPlist": {},
+      "usesIcloudStorage": false
+    },
+    "android": {
+      "versionCode": 1,
+      "package": "com.vaultsports.flagshipapp",
+      "permissions": []
+    },
+    "web": {
+      "display": null,
+      "barStyle": null,
+      "themeColor": "#000000",
+      "orientation": null,
+      "backgroundColor": null,
+      "preferRelatedApplications": null
+    },
+    "notification": {
+      "androidMode": "default"
+    }
+  }
+}
