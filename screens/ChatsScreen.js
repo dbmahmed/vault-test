@@ -84,7 +84,7 @@ const ChatsScreen = (props) => {
   const setInitialFilter = (Variables) => {
     setMemoizedFilters({
       members: { $in: [Variables.internalId] },
-      type: "messaging",
+      // type: ["messaging", "livestream"],
     });
   };
 
@@ -528,6 +528,7 @@ const ChatsScreen = (props) => {
                     <GSComponentTree.GSChat
                       filters={memoizedFilters}
                       theme={theme}
+                      navigation={navigation}
                     />
                   </Utils.CustomCodeErrorBoundary>
                 </View>

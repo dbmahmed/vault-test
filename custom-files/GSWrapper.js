@@ -1,10 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { StreamChat } from 'stream-chat';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { useStreamChatTheme } from '../useStreamChatTheme.js';
-import { OverlayProvider, Streami18n, Chat } from 'stream-chat-expo';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { StreamChat } from "stream-chat";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { useStreamChatTheme } from "../useStreamChatTheme.js";
+import {
+  OverlayProvider,
+  Streami18n,
+  Chat,
+  MessageActionListItem,
+} from "stream-chat-expo";
 
 const useClient = ({ apiKey, userData, tokenOrProvider }) => {
   const [chatClient, setChatClient] = React.useState(null);
@@ -19,7 +24,7 @@ const useClient = ({ apiKey, userData, tokenOrProvider }) => {
       .then(() => {
         if (!didUserConnectInterrupt) setChatClient(client);
       })
-      .catch(e => console.log(e.message));
+      .catch((e) => console.log(e.message));
 
     return () => {
       didUserConnectInterrupt = true;
@@ -28,13 +33,29 @@ const useClient = ({ apiKey, userData, tokenOrProvider }) => {
       connectionPromise
         .then(() => client.disconnectUser())
         .then(() => {
-          console.log('connection closed');
+          console.log("connection closed");
         });
     };
   }, [apiKey, userData.id, tokenOrProvider]);
 
   return chatClient;
 };
+// import { MessageActionListItem, OverlayProvider, useMessageActionAnimation } from 'stream-chat-react-native';
+
+const CustomMessageActionListItem = ({ action, actionType, ...rest }) => {
+  if (actionType === "flagMessage") {
+    return null;
+  } else {
+    return (
+      <MessageActionListItem
+        action={action}
+        actionType={actionType}
+        {...rest}
+      />
+    );
+  }
+};
+
 export const Index = ({ APIKEY, USER, GSTOKEN, children }) => {
   const bottom = useSafeAreaInsets();
   const stheme = useStreamChatTheme();
@@ -45,7 +66,7 @@ export const Index = ({ APIKEY, USER, GSTOKEN, children }) => {
     tokenOrProvider: GSTOKEN,
   });
   const streami18n = new Streami18n({
-    language: 'en',
+    language: "en",
   });
 
   return chatClient ? (
@@ -53,6 +74,7 @@ export const Index = ({ APIKEY, USER, GSTOKEN, children }) => {
       bottomInset={bottom}
       i18nInstance={streami18n}
       translucentStatusBar
+      MessageActionListItem={CustomMessageActionListItem}
       value={{ style: stheme }}
     >
       <View style={{ flex: 1 }}>
@@ -65,7 +87,7 @@ export const Index = ({ APIKEY, USER, GSTOKEN, children }) => {
         style={styles.ActivityIndicator89fafeca}
         animating={true}
         hidesWhenStopped={true}
-        size={'large'}
+        size={"large"}
       />
     </View>
   );
@@ -73,6 +95,6 @@ export const Index = ({ APIKEY, USER, GSTOKEN, children }) => {
 const styles = () =>
   StyleSheet.create({
     ActivityIndicator89fafeca: { height: 36, width: 36 },
-    View2200bac7: { height: '100%' },
-    Viewbf78ff24: { alignItems: 'center', flex: 1, justifyContent: 'center' },
+    View2200bac7: { height: "100%" },
+    Viewbf78ff24: { alignItems: "center", flex: 1, justifyContent: "center" },
   });

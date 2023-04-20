@@ -10,10 +10,12 @@ import {
   MessageInput,
   MessageList,
   Thread,
+  messageActions as defaultActions,
+  User as UserIcon,
 } from "stream-chat-expo";
-import { View, Text } from "react-native";
+import { View, Text, Touchable } from "react-native";
 
-export const GSChat = ({ filters, theme }) => {
+export const GSChat = ({ filters, theme, navigation }) => {
   const Variables = GlobalVariables.useValues();
   const setVariables = GlobalVariables.useSetValue();
   const headerHeight = CustomPackages.useHeaderHeight();
@@ -97,19 +99,38 @@ export const GSChat = ({ filters, theme }) => {
             keyboardVerticalOffset={120}
             thread={thread}
             threadList={!!thread}
+            messageActions={(param) => {
+              const { message, dismissOverlay, isMyMessage } = param;
+              const actions = defaultActions({ ...param });
+              if (!isMyMessage)
+                actions.push({
+                  action: async () => {
+                    // dismiss;
+                    dismissOverlay();
+                    console.log("go to user id", message.user.id);
+                    navigation.navigate("SettingsBetaScreen");
+                  },
+                  actionType: "seeProfile",
+                  title: "See Profile",
+                  icon: <UserIcon />,
+                });
+              return actions;
+            }}
           >
             {thread ? (
               <Thread />
             ) : (
               <>
                 <MessageList onThreadSelect={setThread} />
-                <MessageInput
-                  additionalTextInputProps={{
-                    autoFocus: false,
-                    keyboardAppearance: "dark",
-                  }}
-                  // uploadNewImage={(image) => {}}
-                />
+                {channel.type === "messaging" && (
+                  <MessageInput
+                    additionalTextInputProps={{
+                      autoFocus: false,
+                      keyboardAppearance: "dark",
+                    }}
+                    // uploadNewImage={(image) => {}}
+                  />
+                )}
               </>
             )}
           </Channel>
