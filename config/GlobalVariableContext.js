@@ -1,23 +1,24 @@
-import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
-import * as SplashScreen from 'expo-splash-screen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from "react";
+import { View, ActivityIndicator } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DeviceVariables = {
-  AUTH_HEADER: 'some AUTH_HEADER',
-  GS_API_KEY: 'x65f7n98t9nq',
+  AUTH_HEADER: "some AUTH_HEADER",
+  GS_API_KEY: "x65f7n98t9nq",
   USER: {},
   authToken:
-    'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoieiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkJhc2ljVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiYTk4MWQyMzItZjU2MS00ZDhlLWFjMzQtOTgyNzNmYzI2MDAwIiwiZXhwIjoxNjgzNDIxOTIyLCJpc3MiOiJodHRwczovL3ZhdWx0c3BvcnRzaHEuY29tIiwiYXVkIjoiaHR0cHM6Ly92YXVsdHNwb3J0c2hxLmNvbSJ9.d6ewDLeuLx1IRQHLleqGK_HktsFwg1YjeNhredZJOTs',
+    "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoieiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkJhc2ljVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiYTk4MWQyMzItZjU2MS00ZDhlLWFjMzQtOTgyNzNmYzI2MDAwIiwiZXhwIjoxNjgzNDIxOTIyLCJpc3MiOiJodHRwczovL3ZhdWx0c3BvcnRzaHEuY29tIiwiYXVkIjoiaHR0cHM6Ly92YXVsdHNwb3J0c2hxLmNvbSJ9.d6ewDLeuLx1IRQHLleqGK_HktsFwg1YjeNhredZJOTs",
   favLeague: [],
   favTeam: [],
   gamesScreenTutorial: false,
   lastBetRefresh: 0,
   meScreenTutorial: false,
   moneyScreenTutorial: false,
-  oddsDisplayedDevice: ['basketball_nba', 'spreads'],
-  profilePictureUrl: '',
-  profileTabDevice: 'historical',
+  oddsDisplayedDevice: ["basketball_nba", "spreads"],
+  READ_ONLY_GS_CHANNELS: ["Announcements_b0843e02-c182-46af-a609-9c6e87ba25cd"],
+  profilePictureUrl: "",
+  profileTabDevice: "historical",
   pushNotificationsAllowed: false,
   showAllowNotificationsBackButton: false,
   showAllowNotificationsNextButton: false,
@@ -25,23 +26,23 @@ const DeviceVariables = {
   subscriptionPaidAnnually: true,
   subscriptionPriceAnnual: 59.99,
   testVar: true,
-  userDefaultUnitSize: '',
-  userFirstName: '',
+  userDefaultUnitSize: "",
+  userFirstName: "",
   userPushNotificationsBuffer: true,
   userPushNotificationsPrompt: false,
-  userUsername: '',
-  username: '',
+  userUsername: "",
+  username: "",
   waitlisted: false,
 };
 const AppVariables = {
-  CHANNEL: '',
+  CHANNEL: "",
   GS_USER: {},
-  GS_USER_TOKEN: '',
-  THREAD: '',
+  GS_USER_TOKEN: "",
+  THREAD: "",
   combinedFiltersArray: [],
-  debugVar: '',
+  debugVar: "",
   dummyVar: 15,
-  filterBetStatus: 'win',
+  filterBetStatus: "win",
   filterBetStatusApply: [],
   filterBetType: [],
   filterBetTypeApply: [],
@@ -64,56 +65,56 @@ const AppVariables = {
   filterUnderdog: [],
   filterUnderdogApply: [],
   gamesTutorial: 1,
-  globalFilters: '',
+  globalFilters: "",
   initLoginCheck: 0,
-  internalId: '9b3a52cc-7e94-465c-a030-57ce41a01088',
+  internalId: "9b3a52cc-7e94-465c-a030-57ce41a01088",
   loadingLogin: false,
   loadingRefresh: false,
   loadingSignUp: false,
   meTutorial: 1,
   mockSportsbookSyncModal: false,
   moneyTutorial: 1,
-  oddsDisplayed: ['basketball_nba', 'spreads'],
+  oddsDisplayed: ["basketball_nba", "spreads"],
   profileCardSettings: false,
-  profileTab: 'historical',
+  profileTab: "historical",
   refreshPressCount: 3,
   ringLegendShown: false,
   selectedGame: [
     {
-      id: 'f9513b80a2533875a0d938447550ed0b',
-      league: 'basketball_nba',
-      betType: 'spreads',
-      awayTeam: 'Phoenix Suns',
-      homeTeam: 'New Orleans Pelicans',
+      id: "f9513b80a2533875a0d938447550ed0b",
+      league: "basketball_nba",
+      betType: "spreads",
+      awayTeam: "Phoenix Suns",
+      homeTeam: "New Orleans Pelicans",
       awayScore: 51,
       completed: false,
       homeScore: 46,
-      startTime: '2022-04-23T01:30:00Z',
+      startTime: "2022-04-23T01:30:00Z",
       bookmakers: [
         {
-          key: 'draftkings',
-          title: 'DraftKings',
+          key: "draftkings",
+          title: "DraftKings",
           appUrl:
-            'https://apps.apple.com/us/app/draftkings-sportsbook-casino/id1375031369',
+            "https://apps.apple.com/us/app/draftkings-sportsbook-casino/id1375031369",
           totalLine: null,
-          lastUpdate: '04/22/2022 02:28:23',
+          lastUpdate: "04/22/2022 02:28:23",
           affiliateUrl: null,
-          awayTeamLine: '-1.5',
-          homeTeamLine: '1.5',
-          cleansedTitle: 'DraftKings',
+          awayTeamLine: "-1.5",
+          homeTeamLine: "1.5",
+          cleansedTitle: "DraftKings",
           affiliateOffer: null,
           overOddsAmerican: null,
           underOddsAmerican: null,
-          awayTeamOddsAmerican: '-110',
-          homeTeamOddsAmerican: '-110',
+          awayTeamOddsAmerican: "-110",
+          homeTeamOddsAmerican: "-110",
         },
       ],
       winningTeam: 2,
     },
   ],
-  selectedSportsbook: 'Aggregate',
-  selectedSportsbookChart: 'init',
-  shareScreenName: 'username',
+  selectedSportsbook: "Aggregate",
+  selectedSportsbookChart: "init",
+  shareScreenName: "username",
   showSportsbooksDisconnectedPrompt: true,
   sportsbooksSyncedVar: false,
   statsAtRisk: 0,
@@ -128,7 +129,7 @@ const AppVariables = {
   toWinLosing: 0,
   toWinWinning: 0,
   toggleAdvancedFilters: false,
-  toggleBankrollValues: '',
+  toggleBankrollValues: "",
   toggleCreateChatModal: false,
   toggleDeleteAccountModal: false,
   toggleFiltersModal: false,
@@ -140,8 +141,8 @@ const AppVariables = {
   toggleHistoricalBetsList: true,
   toggleLeaguesModal: false,
   toggleMenuModal: false,
-  toggleMultilegBetInfo: '',
-  toggleMyBetsAnalysis: '',
+  toggleMultilegBetInfo: "",
+  toggleMyBetsAnalysis: "",
   toggleMyBetsMoreInfoModal: false,
   toggleOnboardSubModal: false,
   togglePendingBetsList: false,
@@ -150,17 +151,17 @@ const AppVariables = {
   toggleShareModal: false,
   toggleSignOutActionSheet: false,
   toggleSignOutModal: false,
-  toggleSportsbookInfo: '',
+  toggleSportsbookInfo: "",
   toggleSportsbookModal: false,
   toggleSportsbookSyncInfoModal: false,
   totalBankroll: 0,
   tryForADay: false,
   updatedSportsBook: 0,
   userPushNotificationRemind: true,
-  waitlistedTimer: '',
+  waitlistedTimer: "",
   weeklyRecapSlide: 1,
-  x_requests_remaining: '',
-  x_requests_used: '',
+  x_requests_remaining: "",
+  x_requests_used: "",
 };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
@@ -217,11 +218,11 @@ class State {
 
   static reducer(state, { type, payload }) {
     switch (type) {
-      case 'RESET':
+      case "RESET":
         return { values: State.defaultValues, __loaded: true };
-      case 'LOAD_FROM_ASYNC_STORAGE':
+      case "LOAD_FROM_ASYNC_STORAGE":
         return { values: { ...state.values, ...payload }, __loaded: true };
-      case 'UPDATE':
+      case "UPDATE":
         return state.__loaded
           ? {
               ...state,
@@ -259,7 +260,7 @@ export function GlobalVariableProvider({ children }) {
     async function initialStorageLoader() {
       try {
         const payload = await GlobalVariable.loadLocalStorage();
-        dispatch({ type: 'LOAD_FROM_ASYNC_STORAGE', payload });
+        dispatch({ type: "LOAD_FROM_ASYNC_STORAGE", payload });
       } catch (err) {
         console.error(err);
       }
@@ -311,7 +312,7 @@ export function GlobalVariableProvider({ children }) {
 export function useSetValue() {
   const dispatch = React.useContext(GlobalVariableUpdater);
   return ({ key, value }) => {
-    dispatch({ type: 'UPDATE', payload: { key, value } });
+    dispatch({ type: "UPDATE", payload: { key, value } });
     return value;
   };
 }

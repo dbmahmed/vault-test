@@ -3,7 +3,7 @@ import React from "react";
 import * as GlobalVariables from "../config/GlobalVariableContext";
 import * as CustomPackages from "../custom-files/CustomPackages";
 
-import { IconButton, CircleImage } from "@draftbit/ui";
+import { IconButton, CircleImage, Touchable } from "@draftbit/ui";
 import {
   Channel,
   ChannelList,
@@ -13,7 +13,7 @@ import {
   messageActions as defaultActions,
   User as UserIcon,
 } from "stream-chat-expo";
-import { View, Text, Touchable } from "react-native";
+import { View, Text } from "react-native";
 
 export const GSChat = ({ filters, theme, navigation }) => {
   const Variables = GlobalVariables.useValues();
@@ -44,6 +44,7 @@ export const GSChat = ({ filters, theme, navigation }) => {
     return channels;
     // return channels.filter(/** your custom filter logic */);
   };
+  const isMember = channel?.state.membership.role === "member";
 
   const sort = { last_message_at: -1 };
   const options = {
@@ -74,22 +75,30 @@ export const GSChat = ({ filters, theme, navigation }) => {
             icon={"Ionicons/arrow-back"}
             color={theme.colors["Light"]}
           />
-          <View
-            style={{
-              flexDirection: "row",
-              // alignItems: "center",
+
+          <Touchable
+            onPress={() => {
+              // console.log("channel role", channel?.state.membership.role);
+              navigation.navigate("SettingsBetaScreen");
             }}
           >
-            <CircleImage size={32} source={{ uri: channel.data?.image }} />
-            <Text
+            <View
               style={{
-                color: "white",
-                marginLeft: 16,
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              {channel.data.name}
-            </Text>
-          </View>
+              <CircleImage size={32} source={{ uri: channel.data?.image }} />
+              <Text
+                style={{
+                  color: "white",
+                  marginLeft: 16,
+                }}
+              >
+                {channel.data.name}
+              </Text>
+            </View>
+          </Touchable>
         </View>
       )}
       <View style={{ flex: 1 }}>
@@ -122,7 +131,8 @@ export const GSChat = ({ filters, theme, navigation }) => {
             ) : (
               <>
                 <MessageList onThreadSelect={setThread} />
-                {channel.type === "messaging" && (
+                {(!Variables.READ_ONLY_GS_CHANNELS.includes(channel.data.id) ||
+                  !isMember) && (
                   <MessageInput
                     additionalTextInputProps={{
                       autoFocus: false,
